@@ -1,16 +1,18 @@
 import axios from "axios";
 
-const server = (token) => {
+const server = (token = false) => {
   const service = axios.create({
     baseURL: "http://localhost:4000/",
     timeout: 3000,
   });
   service.defaults.transformResponse = (result) => {
     result = JSON.parse(result);
-    if (result.data) return { success: result.success, ...result.data };
+    if (result.data) return { success: result.success, load: result.data };
     return result;
   };
-  if (token) service.defaults.headers.common["Authorization"] = token;
+  if (token)
+    service.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
   return service;
 };
 

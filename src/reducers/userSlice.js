@@ -5,6 +5,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: { value: { userInfo: null, is_loading: false } },
   reducers: {
+    empty: () => {},
     login: (state, action) => {
       state.value = {
         userInfo: action.payload,
@@ -34,6 +35,8 @@ export const login = (token) => {
     if (decoded) {
       if (Date.now() < decoded.exp * 1000) {
         return userSlice.actions.login(decoded);
+      } else {
+        return userSlice.actions.empty();
       }
     }
   } catch (error) {

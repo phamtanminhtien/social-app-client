@@ -17,6 +17,7 @@ const STATUS = { LOGIN: 0, REGISTER: 1, FORGOT: 2 };
 
 function Login() {
   const [status, setStatus] = useState(STATUS.LOGIN);
+  const [warning, setWarning] = useState(null);
   const loading = useSelector(loadingSelect);
   const dispatcher = useDispatch();
   const user = useSelector(userSelect);
@@ -36,9 +37,9 @@ function Login() {
       .post("/user/login/", value)
       .then((result) => {
         if (!result.data.success) {
-          alert(result.data?.message);
+          setWarning(result.data?.message);
         } else {
-          dispatcher(login(result.data.token));
+          dispatcher(login(result.data.load.token));
         }
 
         dispatcher(stopLoading());
@@ -50,7 +51,7 @@ function Login() {
       .post("/user/register/", value)
       .then((result) => {
         if (!result.data.success) {
-          alert(result.data?.message);
+          setWarning(result.data?.message);
         } else {
           setStatus(STATUS.LOGIN);
         }
@@ -99,7 +100,17 @@ function Login() {
               )}
             </p>
           </div>
+
           <div className="mt-8 space-y-6 relative p-10">
+            {warning && (
+              <div
+                className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
+                role="alert"
+              >
+                <p>{warning}</p>
+              </div>
+            )}
+
             {loading && (
               <div className="rounded-md absolute top-0 left-0 right-0 bottom-0 z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
                 <div
