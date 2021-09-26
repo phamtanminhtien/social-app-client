@@ -39,7 +39,8 @@ function Login() {
         if (!result.data.success) {
           setWarning(result.data?.message);
         } else {
-          dispatcher(login(result.data.load.token));
+          localStorage.setItem("token", result.data.load.token);
+          dispatcher(login(result.data.load.user));
         }
 
         dispatcher(stopLoading());

@@ -1,11 +1,15 @@
 import React, { useRef, useState } from "react";
-import server from "../../services/server";
+import server, { getLinkMedia } from "../../services/server";
 import Avatar from "../../uis/Avatar";
 import Button from "../../uis/Button";
 import StatusInput from "../../uis/StatusInput";
 import getBase64 from "../../utils/getBase64";
+import { useSelector } from "react-redux";
+import { userSelect } from "../../reducers/userSlice";
 
 function BoxUpStatus() {
+  const user = useSelector(userSelect);
+
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
@@ -107,10 +111,17 @@ function BoxUpStatus() {
       />
       <div className="flex gap-5">
         <div>
-          <Avatar name="Yi" />
+          <Avatar
+            name={user.firstName}
+            src={getLinkMedia(user.avatar?.meta.filename)}
+          />
         </div>
         <div className="flex-1">
-          <StatusInput content={content} setContent={setContent} />
+          <StatusInput
+            firstName={user.firstName}
+            content={content}
+            setContent={setContent}
+          />
         </div>
       </div>
       <div className="flex flex-wrap gap-3 border-2 border-gray-400 border-dashed p-2">
