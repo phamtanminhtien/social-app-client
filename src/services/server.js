@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server_endpoint = "https://mt-social-media-app-server.herokuapp.com/";
+const server_endpoint = "https://mt-social-media-app-server.herokuapp.com";
 const server = (token = false) => {
   const service = axios.create({
     baseURL: server_endpoint,
