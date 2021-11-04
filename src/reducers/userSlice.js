@@ -23,6 +23,10 @@ export const userSlice = createSlice({
     stopLoading: (state) => {
       state.value = { ...state.value, is_loading: false };
     },
+    changeAvatar: (state, action) => {
+      const newUserInfo = { ...state.value.userInfo, avatar: action.payload };
+      state.value = { ...state.value, userInfo: newUserInfo };
+    },
   },
 });
 
@@ -31,7 +35,8 @@ export const logout = () => {
   return userSlice.actions.logout();
 };
 
-export const { startLoading, stopLoading, empty, login } = userSlice.actions;
+export const { startLoading, stopLoading, empty, login, changeAvatar } =
+  userSlice.actions;
 export const userSelect = (state) => state.user.value.userInfo;
 export const loadingSelect = (state) => state.user.value.is_loading;
 

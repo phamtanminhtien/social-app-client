@@ -20,7 +20,10 @@ const getLinkMedia = (name) => {
   if (!name) return null;
   return server_endpoint + "/media/" + name;
 };
-
-export { server_endpoint, getLinkMedia };
+const getLinkUser = (id) => {
+  if (!id) return null;
+  return "/user/" + id;
+};
+export { server_endpoint, getLinkMedia, getLinkUser };
 
 export default server;

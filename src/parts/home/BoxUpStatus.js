@@ -7,7 +7,7 @@ import getBase64 from "../../utils/getBase64";
 import { useSelector } from "react-redux";
 import { userSelect } from "../../reducers/userSlice";
 
-function BoxUpStatus() {
+function BoxUpStatus({ reload }) {
   const user = useSelector(userSelect);
 
   const [content, setContent] = useState("");
@@ -34,6 +34,7 @@ function BoxUpStatus() {
         } else {
           setContent("");
           setImageList([]);
+          reload();
           console.log(result.data.load);
         }
         setLoading(false);
@@ -88,7 +89,7 @@ function BoxUpStatus() {
   };
 
   return (
-    <div className="bg-white border-gray-200 border rounded shadow-md p-10 relative">
+    <div className="bg-white rounded shadow-md p-5 relative">
       {loading && (
         <div className="rounded-md absolute top-0 left-0 right-0 bottom-0 z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
           <div
@@ -112,6 +113,7 @@ function BoxUpStatus() {
       <div className="flex gap-5">
         <div>
           <Avatar
+            _id={user._id}
             name={user.firstName}
             src={getLinkMedia(user.avatar?.meta.filename)}
           />
@@ -124,45 +126,52 @@ function BoxUpStatus() {
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-3 border-2 border-gray-400 border-dashed p-2">
-        {imageList.map((item, index) => {
+      <div className="flex flex-wrap border-2 border-gray-400 border-dashed p-2 bg-gray-100">
+        {imageList.map((item) => {
           return (
-            <div className="w-24 h-24 relative overflow-hidden" key={index}>
-              <span
-                onClick={() => {
-                  handleOnClickDelete(item._id);
+            <div className="w-1/5 overflow-hidden p-2" key={item._id}>
+              <div
+                className="relative w-full bg-center bg-contain border border-gray-300"
+                style={{
+                  paddingTop: "100%",
+                  backgroundImage: "url(" + item.url + ")",
                 }}
-                className="absolute top-1 right-1 leading-none rounded-full bg-black bg-opacity-40 text-white w-5 h-5 text-center cursor-pointer hover:bg-opacity-100"
               >
-                ×
-              </span>
-              <img
-                className="min-w-full min-h-full object-cover"
-                src={item.url}
-                alt=""
-              ></img>
+                <span
+                  onClick={() => {
+                    handleOnClickDelete(item._id);
+                  }}
+                  className="select-none absolute top-1 right-1 leading-none rounded-full bg-black bg-opacity-40 text-white w-5 h-5 text-center cursor-pointer hover:bg-opacity-100"
+                >
+                  ×
+                </span>
+              </div>
             </div>
           );
         })}
-
-        <div
-          className="w-24 h-24 relative flex items-center justify-center bg-gray-200 cursor-pointer hover:bg-gray-400"
-          onClick={handleOnClickUploadImage}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <div className="w-1/5 overflow-hidden p-2">
+          <div
+            className="w-full relative bg-gray-200 cursor-pointer hover:bg-gray-400"
+            style={{ paddingTop: "100%" }}
+            onClick={handleOnClickUploadImage}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
+            <div className="absolute top-0 right-0 left-0 bottom-0 flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex justify-end mt-3 pt-3 border-t border-gray-200">

@@ -9,8 +9,11 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
+    "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -20,7 +23,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "node server.js",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
