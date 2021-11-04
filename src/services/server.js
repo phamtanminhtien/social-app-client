@@ -4,7 +4,7 @@ const server_endpoint = "https://mt-social-media-app-server.herokuapp.com/";
 const server = (token = false) => {
   const service = axios.create({
     baseURL: server_endpoint,
-    timeout: 3000,
+    timeout: 10000,
   });
   service.defaults.transformResponse = (result) => {
     result = JSON.parse(result);
