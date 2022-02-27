@@ -1,4 +1,4 @@
-Demo: [https://mt-social-media-app-client.herokuapp.com/login](https://mt-social-media-app-client.herokuapp.com/login)
+Demo: [https://mt-social-media-app-client.herokuapp.com/](https://mt-social-media-app-client.herokuapp.com/)
 
 # Getting Started with Create React App
 
